@@ -1,0 +1,177 @@
+package models;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+
+@Table(name = "reports")
+@NamedQueries({
+    @NamedQuery(
+        name = "getAllReports",
+        query = "SELECT r FROM Report AS r ORDER BY r.id DESC"
+    ),
+    @NamedQuery(
+        name = "getReportsCount",
+        query = "SELECT COUNT(r) FROM Report AS r"
+    ),
+    @NamedQuery(
+        name = "getMyAllReports",
+        query = "SELECT r FROM Report AS r WHERE r.employee = :employee ORDER BY r.id DESC"
+    ),
+    @NamedQuery(
+        name = "getMyReportsCount",
+        query = "SELECT COUNT(r) FROM Report AS r WHERE r.employee = :employee"
+    ),
+})
+@Entity
+public class Report {
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @ManyToOne
+    @JoinColumn(name = "employee_id", nullable = false)
+    private Employee employee;
+
+    @Column(name = "report_date", nullable = false)
+    private Date report_date;
+
+    @Column(name = "title", length = 255, nullable = false)
+    private String title;
+
+    @Lob
+    @Column(name = "content", nullable = false)
+    private String content;
+
+    @Column(name = "created_at", nullable = false)
+    private Timestamp created_at;
+
+    @Column(name = "updated_at", nullable = false)
+    private Timestamp updated_at;
+
+    // いいね数のプロパティを追加
+    @Column(name = "like_count", nullable = false)
+    private Integer like_count;
+
+    @Column(name = "work_time_hour")
+    private Integer work_time_hour;
+
+    @Column(name = "work_time_min")
+    private Integer work_time_min;
+
+    @Column(name = "leave_time_hour")
+    private Integer leave_time_hour;
+
+    @Column(name = "leave_time_min")
+    private Integer leave_time_min;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    public Date getReport_date() {
+        return report_date;
+    }
+
+    public void setReport_date(Date report_date) {
+        this.report_date = report_date;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public Timestamp getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(Timestamp created_at) {
+        this.created_at = created_at;
+    }
+
+    public Timestamp getUpdated_at() {
+        return updated_at;
+    }
+
+    public void setUpdated_at(Timestamp updated_at) {
+        this.updated_at = updated_at;
+    }
+
+    // いいね数のゲッターセッターを追加
+    public Integer getLike_count() {
+        return like_count;
+    }
+
+    public void setLike_count(Integer like_count) {
+        this.like_count = like_count;
+    }
+    public Integer getWork_time_hour() {
+        return work_time_hour;
+    }
+
+    public void setWork_time_hour(Integer work_time_hour) {
+        this.work_time_hour = work_time_hour;
+    }
+
+    public Integer getWork_time_min() {
+        return work_time_min;
+    }
+
+    public void setWork_time_min(Integer work_time_min) {
+        this.work_time_min = work_time_min;
+    }
+
+    public Integer getLeave_time_hour() {
+        return leave_time_hour;
+    }
+
+    public void setLeave_time_hour(Integer leave_time_hour) {
+        this.leave_time_hour = leave_time_hour;
+    }
+
+    public Integer getLeave_time_min() {
+        return leave_time_min;
+    }
+
+    public void setLeave_time_min(Integer leave_time_min) {
+        this.leave_time_min = leave_time_min;
+    }
+
+
+}
